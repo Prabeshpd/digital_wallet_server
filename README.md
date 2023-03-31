@@ -1,1 +1,1 @@
-# digital_wallet_sample
+# digital_wallet_server
