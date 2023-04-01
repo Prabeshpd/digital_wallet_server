@@ -22,7 +22,7 @@ jobs:
           node-version: 18
 
       - name: Run Prettier
-        uses: creyd/prettier_action@v4.2
+        uses: creyd/prettier_action@v4.3
         with:
           prettier_version: 2.7.1
           prettier_options: '--print-width 120 --single-quote true --trailing-comma none --write **/*.{ts,md,yml,js,json}'
