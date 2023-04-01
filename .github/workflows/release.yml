@@ -1,0 +1,88 @@
+name: Digital Payment Server Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest commit message
+        id: get_message
+        run: |
+          # Replace new lines with underscore in commit message so that we can set
+          # it to an environment variable
+          commit_message=$(echo -e "${{github.event.head_commit.message}}"|tr '\n' '_')
+          echo "title=${commit_message}" >> $GITHUB_ENV
+
+      - name: Check if release
+        if: contains(env.title, 'Merge pull request') && contains(env.title,'release/')
+        run: echo "release=true" >> $GITHUB_ENV
+
+    outputs:
+      release: ${{env.release}}
+
+  release-artifact:
+    runs-on: ubuntu-latest
+    needs: check-release
+    if: ${{needs.check-release.outputs.release}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: 'https://npm.pkg.github.com'
+          cache: 'yarn'
+          cache-dependency-path: ./yarn.lock
+
+      - name: Setup
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+
+      - name: Create Build Artifacts
+        id: create_build_artifact
+        run: |
+          BUILD_NUM=$(echo $GITHUB_RUN_NUMBER)
+          BUILD_ID=$(echo $GITHUB_SHA | head -c7)
+          VERSION=node_express+build.${BUILD_NUM}.${BUILD_ID}
+          ARTIFACT_NAME=${VERSION}.zip
+          cp package.json dist/
+          (cd dist && zip -r9q ${{ github.workspace }}/${ARTIFACT_NAME} .)
+          ls -al ${{ github.workspace }}
+          echo "version=${VERSION}" >> $GITHUB_ENV
+          echo "artifact_name=${ARTIFACT_NAME}" >> $GITHUB_ENV
+
+      - name: Upload Build Artifacts to GitHub
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.version }}
+          path: ./${{ env.artifact_name }}
+          retention-days: 14
+
+      # Release on merge. Merge commits from `release/` branches to main will trigger a release.
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.ACTION_TOKEN }}
+        run: yarn semantic-release
+
+      - name: Get tag
+        id: get_tag
+        uses: 'WyriHaximus/github-action-get-previous-tag@v1'
+        with:
+          fallback: 1.0.0
+
+      - name: Create Release Artifact
+        id: create_release_artifact
+        run: |
+          VERSION=${{ steps.get_tag.outputs.tag }}
+          ARTIFACT_NAME=${VERSION}.zip
+          cp package.json dist/
+          (cd dist && zip -r9q ${{ github.workspace }}/${ARTIFACT_NAME} .)
+          ls -al ${{ github.workspace }}
+          echo "release_artifact_name=${ARTIFACT_NAME}" >> $GITHUB_ENV
