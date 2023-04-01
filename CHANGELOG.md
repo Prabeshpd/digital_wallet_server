@@ -1,3 +1,18 @@
+# [1.1.0](https://github.com/Prabeshpd/digital_wallet_server/compare/wallet_server@1.0.0...wallet_server@1.1.0) (2023-04-01)
+
+
+### Bug Fixes
+
+* add fixture for auth test ([fa8d073](https://github.com/Prabeshpd/digital_wallet_server/commit/fa8d07377f7f09f234395a0903d946fac2fcdd67))
+
+
+### Features
+
+* add auth flow api to the application ([859a26a](https://github.com/Prabeshpd/digital_wallet_server/commit/859a26a249e5fe75dc6e15a446f7e0d1a9f052aa))
+* add knex connection for database ([1ed421e](https://github.com/Prabeshpd/digital_wallet_server/commit/1ed421e9a08e63ac64750fa917d9f44464f2e511))
+* add util for jwt and crypt ([cf1774f](https://github.com/Prabeshpd/digital_wallet_server/commit/cf1774f66a82af5956484c640ac81a6c6e315f32))
+* make database connection for the entity ([a2c3555](https://github.com/Prabeshpd/digital_wallet_server/commit/a2c3555ebf17118edaa8141d721568920cd1451b))
+
 # 1.0.0 (2023-04-01)
 
 
