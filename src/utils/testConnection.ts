@@ -5,7 +5,7 @@ const processEnv = config.env;
 
 export function getTestDatabaseConnection() {
   const dbConfig = {
-    client: 'mssql',
+    client: 'pg',
     connection: { ...config.database[processEnv] }
   };
 

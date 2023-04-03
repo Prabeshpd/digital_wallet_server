@@ -6,6 +6,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string('name', 255).notNullable();
     table.string('email', 255).notNullable().unique();
     table.string('password', 255).notNullable();
+    table.boolean('is_verified').notNullable().defaultTo(false);
+    table.string('identification_number', 255).notNullable().unique();
     table.boolean('is_active').notNullable().defaultTo(true);
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());

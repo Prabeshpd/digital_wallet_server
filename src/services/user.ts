@@ -34,11 +34,10 @@ export async function findUserByEmail(email: string): Promise<UserSchema> {
   return user;
 }
 
-export async function addUser(userpayload: UserPayload) {
-  const password = userpayload.password;
+export async function addUser(userPayload: UserPayload) {
+  const password = userPayload.password;
   const cryptedPassword = await crypt.hash(password);
-  const payload = { ...userpayload, password: cryptedPassword, is_active: true };
-
+  const payload = { ...userPayload, password: cryptedPassword, is_active: true };
   const [user] = await User.insertData(payload);
 
   return user;

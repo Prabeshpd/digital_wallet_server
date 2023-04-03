@@ -17,7 +17,7 @@ const processEnv = config.env;
  */
 export function getDatabaseConnection(): Knex {
   const dbConfig = {
-    client: 'mssql',
+    client: 'pg',
     connection: { ...config.database[processEnv] }
   };
 
@@ -44,7 +44,6 @@ export async function bindAppConnection() {
   try {
     let connection: DatabaseConfig | null;
     connection = await getPersistedConnections();
-
     if (!connection) {
       const memoizedConnection = await createMemoizedConnections();
       if (!memoizedConnection) throw Error('Something went wrong in establishing the connection with database.');
@@ -88,7 +87,7 @@ export interface DatabaseConfig {
  */
 export function createConnection(): DatabaseConfig {
   const dbConfig = {
-    client: 'mssql',
+    client: 'pg',
     connection: { ...config.database[env] }
   };
 

@@ -3,8 +3,8 @@ import httpStatusCode from 'http-status-codes';
 import { Request, Response, NextFunction } from 'express';
 
 import logger from '../utils/logger';
+import { ERROR_TYPES } from '../constants/enums';
 import ErrorFormatter from '../utils/ErrorHandler';
-import { ERROR_TYPES, ERROR_CODES } from '../constants/enums';
 
 /**
  * Error response middleware for 404 not found. This middleware function should be at the very bottom of the stack.
@@ -83,13 +83,15 @@ export function genericErrorHandler(err: any, req: Request, res: Response, next:
     logger.error('Error stack trace: ', err.stack);
   }
 
-  if (!err.type) {
+  console.log(err);
+
+  if (!err?.statusCode) {
     logger.error(err);
     return res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json(err);
   }
 
   logger.error(err);
-  const statusCode = ERROR_CODES.get(err.type) || httpStatusCode.INTERNAL_SERVER_ERROR;
+  const statusCode = err?.statusCode || httpStatusCode.INTERNAL_SERVER_ERROR;
 
   res.status(statusCode).json(err);
 }
