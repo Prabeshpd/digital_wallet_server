@@ -13,8 +13,8 @@
 Clone the repository, install the dependencies and get started right away. Make sure you already have `nodejs`, `npm` and `yarn` installed in your system.
 
 ```sh
-git git@github.com:Prabeshpd/node-express.git
-cd node-express
+git git@github.com:Prabeshpd/digital_wallet_server.git
+cd digital_wallet_server
 cp .env.example .env
 yarn
 ```
