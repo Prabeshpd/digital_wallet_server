@@ -10,7 +10,5 @@ import * as homeService from '../services/home';
  * @param {Response} reply
  */
 export async function getAppInfo(request: Request, response: Response) {
-  const appInfo = await homeService.getAppInfo();
-
-  response.status(httpStatusCode.OK).send(appInfo);
+  homeService.getAppInfo().then((data) => response.status(httpStatusCode.OK).send(data));
 }

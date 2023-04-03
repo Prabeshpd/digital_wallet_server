@@ -72,30 +72,30 @@ const config: Configuration = {
   database: {
     test: {
       host: process.env.DB_TEST_HOST || 'localhost',
-      port: (process.env.DB_TEST_PORT && +process.env.DB_TEST_PORT) || 1433,
-      user: process.env.DB_TEST_USER || 'sa',
+      port: (process.env.DB_TEST_PORT && +process.env.DB_TEST_PORT) || 5432,
+      user: process.env.DB_TEST_USER || 'postgres',
       password: process.env.DB_TEST_PASSWORD || 'Admin@1234',
-      database: process.env.DB_TEST_DATABASE || 'invenco'
+      database: process.env.DB_TEST_DATABASE || 'wallet'
     },
     local: {
       host: process.env.DB_HOST || 'localhost',
-      port: (process.env.DB_PORT && +process.env.DB_PORT) || 1433,
-      user: process.env.DB_USER || 'sa',
+      port: (process.env.DB_PORT && +process.env.DB_PORT) || 5432,
+      user: process.env.DB_USER || 'postgres',
       password: process.env.DB_PASSWORD || 'Admin@1234',
-      database: process.env.DB_DATABASE || 'invenco'
+      database: process.env.DB_DATABASE || 'wallet'
     }
   },
   redis: {
     test: {
       port: +(process.env.REDIS_TEST_PORT || 6379),
       host: process.env.REDIS_TEST_HOST || 'localhost',
-      namespace: process.env.REDIS_TEST_NAMESPACE || 'invenco',
+      namespace: process.env.REDIS_TEST_NAMESPACE || 'wallet',
       password: process.env.REDIS_TEST_PASSWORD || 'Admin@1234'
     },
     local: {
       port: +(process.env.REDIS_PORT || 6379),
       host: process.env.REDIS_HOST || 'localhost',
-      namespace: process.env.REDIS_NAMESPACE || 'invenco',
+      namespace: process.env.REDIS_NAMESPACE || 'wallet',
       password: process.env.REDIS_PASSWORD || 'Admin@1234'
     }
   }
