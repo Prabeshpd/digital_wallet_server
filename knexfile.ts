@@ -2,12 +2,12 @@ require('dotenv').config({ path: __dirname + './env' });
 
 module.exports = {
   development: {
-    client: 'mssql',
+    client: 'pg',
     connection: {
-      port: process.env.DB_PORT || 1433,
+      port: process.env.DB_PORT || 5432,
       server: process.env.DB_HOST || 'localhost',
       database: process.env.DB_NAME || 'wallet',
-      user: process.env.DB_USER || 'sa',
+      user: process.env.DB_USER || 'postgres',
       password: process.env.DB_PASSWORD || 'Admin@1234'
     },
     pool: {
