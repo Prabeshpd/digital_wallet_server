@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/Prabeshpd/digital_wallet_server/compare/wallet_server@1.2.0...wallet_server@1.3.0) (2023-04-03)
+
+
+### Features
+
+* add docker file ([43e9d87](https://github.com/Prabeshpd/digital_wallet_server/commit/43e9d873cbf1cfaa51d791b14112fec3d2bca6dd))
+
 # [1.2.0](https://github.com/Prabeshpd/digital_wallet_server/compare/wallet_server@1.1.0...wallet_server@1.2.0) (2023-04-03)
 
 
